@@ -1,0 +1,361 @@
+--32a80e69.6cfb9--
+
+      )
+
+      (help)
+
+      (summary)
+
+    )
+
+  )
+
+  (exception.saml_post
+
+    (contact)
+
+    (summary "SAML POST")
+
+    (details <<--32a80e69.6cfbe--
+
+        You will be redirected to a federated SAML server to proceed with authentication.
+
+        Click the Continue button to proceed.
+
+        --32a80e69.6cfbe--
+
+    )
+
+    (format)
+
+    (help)
+
+    (http
+
+      (code "200")
+
+      (contact)
+
+      (details)
+
+      (format <<--32a80e69.6cfc0--
+
+<html>
+
+<body onload="document.forms[0].submit()">
+
+<noscript>
+
+<p>$(exception.details)</p>
+
+</noscript>
+
+<form action="$(saml.endpoint)" method="post">
+
+<input type="hidden" name="RelayState" value="$(saml.relaystate)"/>
+
+<input type="hidden" name="SAMLRequest" value="$(saml.postdata)"/>
+
+<noscript>
+
+<input type="submit" value="Continue"/>
+
+</noscript>
+
+</form>
+
+</body>
+
+</html>
+
+            --32a80e69.6cfc0--
+
+      )
+
+      (help)
+
+      (summary)
+
+    )
+
+  )
+
+  (exception.invalid_saml_post
+
+    (contact)
+
+    (details "A request was received at the SAML POST endpoint that did not contain valid SAML POST data. If you reached here by pressing the browser's back button, please enter the target URL in the address bar.")
+
+    (format)
+
+    (help)
+
+    (summary "Invalid SAML POST")
+
+    (http
+
+      (code "403")
+
+      (contact)
+
+      (details)
+
+      (format)
+
+      (help)
+
+      (summary)
+
+    )
+
+  )
+
+  (exception.geoip_denied
+
+    (contact)
+
+    (details "Your system policy has denied access due to geographic restrictions.")
+
+    (format)
+
+    (help "None of the servers hosting the requested URL are in permitted countries.")
+
+    (summary "Access denied by GeoIP")
+
+    (http
+
+      (code "403")
+
+      (contact)
+
+      (details)
+
+      (format)
+
+      (help)
+
+      (summary)
+
+    )
+
+  )
+
+  (exception.tcp_error_geoip_restricted
+
+    (contact)
+
+    (details "A communication error occured: $(quot)$(server_connection.socket_errno)$(quot)")
+
+    (format)
+
+    (help <<--32a80e69.6cfc9--
+
+       <p>The Web Server may be down, too busy, or experiencing other problems preventing it from responding to requests. You may wish to try again at a later time.</p>
+
+       <p>NOTE: Some servers were in disallowed countries and were not contacted.</p>
+
+       --32a80e69.6cfc9--
+
+    )
+
+    (summary "Network Error")
+
+    (http
+
+      (code "403")
+
+      (contact)
+
+      (details)
+
+      (format)
+
+      (help)
+
+      (summary)
+
+    )
+
+  )
+
+  (exception.upstream_407_rejected
+
+    (contact)
+
+    (details "An unexpected 407 challenge was received from an upstream server.")
+
+    (format)
+
+    (help "Upstream 407 challenges are blocked by default to protect client credentials. Such challenges may appear to come from the proxy, rather than from the upstream server.")
+
+    (summary "Upstream 407 rejected")
+
+    (http
+
+      (code "503")
+
+      (contact)
+
+      (details)
+
+      (format)
+
+      (help)
+
+      (summary)
+
+    )
+
+  )
+
+  (exception.client_id_agent_response
+
+    (contact)
+
+    (details "This response is intented for a service that is authenticating using the Client-ID Agent protocol.")
+
+    (format)
+
+    (help)
+
+    (summary "Client-ID Agent response")
+
+    (http
+
+      (code "200")
+
+      (contact)
+
+      (details)
+
+      (format)
+
+      (help)
+
+      (summary)
+
+    )
+
+  )
+
+  (exception.isolation_service_error
+
+    (contact)
+
+    (details "An error occurred attempting to communicate with the isolation service.")
+
+    (format)
+
+    (help "The isolation service may be temporarily unavailable, or there could be a network problem.")
+
+    (summary "Network Error")
+
+    (http
+
+      (code "504")
+
+      (contact)
+
+      (details)
+
+      (format)
+
+      (help)
+
+      (summary)
+
+    )
+
+  )
+
+  (exception.isolation_service_config_error
+
+    (contact)
+
+    (details "Isolation service misconfiguration: service is disabled")
+
+    (format)
+
+    (help "The Isolation service must be enabled in order to use the isolate action. Contact the administrator for further assistance.")
+
+    (summary "Appliance Config Error")
+
+    (http
+
+      (code "500")
+
+      (contact)
+
+      (details)
+
+      (format)
+
+      (help)
+
+      (summary)
+
+    )
+
+  )
+
+  (exception.http_stream_error
+
+    (contact)
+
+    (details "HTTP communication error occurred on stream: $(quot)$(http.server.stream_error)$(quot) ($(http.server.stream_error_code))")
+
+    (format)
+
+    (help "The Web Server may be too busy, or experiencing other problems preventing it from responding to requests. You may wish to try again at a later time.")
+
+    (summary "HTTP Stream Error")
+
+    (http
+
+      (code "503")
+
+      (contact)
+
+      (details)
+
+      (format)
+
+      (help)
+
+      (summary)
+
+    )
+
+  )
+
+  (exception.spoof_authentication_error
+
+    (summary "Internal error")
+
+    (details <<--32a80e69.6cfdb--
+
+                        The ProxySG encountered an internal error
+
+                        while preparing to send your username/password upstream.
+
+                        --32a80e69.6cfdb--
+
+    )
+
+    (help <<--32a80e69.6cfdd--
+
+                        This error can only occur when the ProxySG "spoof authentication" feature is enabled.
+
+                        --32a80e69.6cfdd--
+
+    )
+
+    (http
+
+      (code "500")
+
+    )
+
+  )
+
+)
